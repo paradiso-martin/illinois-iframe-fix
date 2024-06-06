@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full screen responsive video Iframe</title>
+<style>
+    .videoWrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* Proporción 16:9 (divide 9 entre 16) */
+        height: 0;
+        overflow: hidden;
+        max-width: 100%;
+        background: #000;
+    }
+
+    .videoWrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .fullscreenButton {
+        position: absolute;
+        z-index: 10;
+        bottom: 10px;
+        right: 10px;
+        background-color: #ffffff;
+        color: #000000;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div class="videoWrapper" id="videoWrapper">
+    <iframe id="videoFrame" width="auto" height="auto" style="border:0" loading="lazy" allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade" src="https://d1a0h0whdo1jgi.cloudfront.net/">
+    </iframe>
+    <button class="fullscreenButton" onclick="toggleFullscreen()">Fullscreen</button>
+</div>
+
+<script>
+    var videoFrame = document.getElementById('videoFrame');
+    var videoWrapper = document.getElementById('videoWrapper');
+
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            if (videoWrapper.requestFullscreen) {
+                videoWrapper.requestFullscreen();
+            } else if (videoWrapper.mozRequestFullScreen) { /* Firefox */
+                videoWrapper.mozRequestFullScreen();
+            } else if (videoWrapper.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                videoWrapper.webkitRequestFullscreen();
+            } else if (videoWrapper.msRequestFullscreen) { /* IE/Edge */
+                videoWrapper.msRequestFullscreen();
+            }
+            lockOrientation();
+        } else {
+            exitFullscreen();
+        }
+    }
+
+    function exitFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) { /* Firefox */
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE/Edge */
+            document.msExitFullscreen();
+        }
+        unlockOrientation();
+    }
+
+    function lockOrientation() {
+        if (screen.orientation && screen.orientation.lock) {
+            screen.orientation.lock('landscape').catch(function(error) {
+                console.log('Error locking orientation:', error);
+            });
+        }
+    }
+
+    function unlockOrientation() {
+        if (screen.orientation && screen.orientation.unlock) {
+            screen.orientation.unlock();
+        }
+    }
+
+    // Event listener for button text change and adjusting iframe size
+    document.addEventListener('fullscreenchange', function () {
+        if (document.fullscreenElement) {
+            document.querySelector('.fullscreenButton').textContent = 'Exit Fullscreen';
+            videoFrame.style.width = '100vw';
+            videoFrame.style.height = '100vh';
+        } else {
+            document.querySelector('.fullscreenButton').textContent = 'Fullscreen';
+            videoFrame.style.width = '100%';
+            videoFrame.style.height = '100%';
+        }
+    });
+</script>
+
+</body>
+</html>
