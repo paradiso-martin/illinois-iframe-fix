@@ -1,110 +1,153 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Full screen responsive video Iframe</title>
-<style>
-    .videoWrapper {
-        position: relative;
-        padding-bottom: 56.25%; /* Proporción 16:9 (divide 9 entre 16) */
-        height: 0;
-        overflow: hidden;
-        max-width: 100%;
-        background: #000;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Full screen responsive video Iframe</title>
+    <style>
+        body {
+            padding-top: 70px;
+            /* Space for the fixed navbar */
+            background-color: #ffffff;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 1500'%3E%3Cdefs%3E%3Crect stroke='%23ffffff' stroke-width='.5' width='1' height='1' id='s'/%3E%3Cpattern id='a' width='3' height='3' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cuse fill='%23fcfcfc' href='%23s' y='2'/%3E%3Cuse fill='%23fcfcfc' href='%23s' x='1' y='2'/%3E%3Cuse fill='%23fafafa' href='%23s' x='2' y='2'/%3E%3Cuse fill='%23fafafa' href='%23s'/%3E%3Cuse fill='%23f7f7f7' href='%23s' x='2'/%3E%3Cuse fill='%23f7f7f7' href='%23s' x='1' y='1'/%3E%3C/pattern%3E%3Cpattern id='b' width='7' height='11' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23f5f5f5'%3E%3Cuse href='%23s'/%3E%3Cuse href='%23s' y='5' /%3E%3Cuse href='%23s' x='1' y='10'/%3E%3Cuse href='%23s' x='2' y='1'/%3E%3Cuse href='%23s' x='2' y='4'/%3E%3Cuse href='%23s' x='3' y='8'/%3E%3Cuse href='%23s' x='4' y='3'/%3E%3Cuse href='%23s' x='4' y='7'/%3E%3Cuse href='%23s' x='5' y='2'/%3E%3Cuse href='%23s' x='5' y='6'/%3E%3Cuse href='%23s' x='6' y='9'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='h' width='5' height='13' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23f5f5f5'%3E%3Cuse href='%23s' y='5'/%3E%3Cuse href='%23s' y='8'/%3E%3Cuse href='%23s' x='1' y='1'/%3E%3Cuse href='%23s' x='1' y='9'/%3E%3Cuse href='%23s' x='1' y='12'/%3E%3Cuse href='%23s' x='2'/%3E%3Cuse href='%23s' x='2' y='4'/%3E%3Cuse href='%23s' x='3' y='2'/%3E%3Cuse href='%23s' x='3' y='6'/%3E%3Cuse href='%23s' x='3' y='11'/%3E%3Cuse href='%23s' x='4' y='3'/%3E%3Cuse href='%23s' x='4' y='7'/%3E%3Cuse href='%23s' x='4' y='10'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='c' width='17' height='13' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23f2f2f2'%3E%3Cuse href='%23s' y='11'/%3E%3Cuse href='%23s' x='2' y='9'/%3E%3Cuse href='%23s' x='5' y='12'/%3E%3Cuse href='%23s' x='9' y='4'/%3E%3Cuse href='%23s' x='12' y='1'/%3E%3Cuse href='%23s' x='16' y='6'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='d' width='19' height='17' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23ffffff'%3E%3Cuse href='%23s' y='9'/%3E%3Cuse href='%23s' x='16' y='5'/%3E%3Cuse href='%23s' x='14' y='2'/%3E%3Cuse href='%23s' x='11' y='11'/%3E%3Cuse href='%23s' x='6' y='14'/%3E%3C/g%3E%3Cg fill='%23efefef'%3E%3Cuse href='%23s' x='3' y='13'/%3E%3Cuse href='%23s' x='9' y='7'/%3E%3Cuse href='%23s' x='13' y='10'/%3E%3Cuse href='%23s' x='15' y='4'/%3E%3Cuse href='%23s' x='18' y='1'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='e' width='47' height='53' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23F60'%3E%3Cuse href='%23s' x='2' y='5'/%3E%3Cuse href='%23s' x='16' y='38'/%3E%3Cuse href='%23s' x='46' y='42'/%3E%3Cuse href='%23s' x='29' y='20'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='f' width='59' height='71' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23F60'%3E%3Cuse href='%23s' x='33' y='13'/%3E%3Cuse href='%23s' x='27' y='54'/%3E%3Cuse href='%23s' x='55' y='55'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='g' width='139' height='97' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%23F60'%3E%3Cuse href='%23s' x='11' y='8'/%3E%3Cuse href='%23s' x='51' y='13'/%3E%3Cuse href='%23s' x='17' y='73'/%3E%3Cuse href='%23s' x='99' y='57'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23a)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23b)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23h)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23c)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23d)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23e)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23f)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23g)' width='100%25' height='100%25'/%3E%3C/svg%3E");
+            background-attachment: fixed;
+            background-size: cover;
+            background-color: #f8f9fa;
+            /* Light background color */
+        }
 
-    .videoWrapper iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
+        .videoWrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+        }
 
-    .fullscreenButton {
-        position: absolute;
-        z-index: 10;
-        bottom: 10px;
-        right: 10px;
-        background-color: #ffffff;
-        color: #000000;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-    }
-</style>
+        .videoWrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .fullscreenButton {
+            position: absolute;
+            z-index: 10;
+            bottom: 10px;
+            right: 10px;
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body>
 
-<div class="videoWrapper" id="videoWrapper">
-    <iframe id="videoFrame" width="auto" height="auto" style="border:0" loading="lazy" allowfullscreen
-      referrerpolicy="no-referrer-when-downgrade" src="https://d1a0h0whdo1jgi.cloudfront.net/">
-    </iframe>
-    <button class="fullscreenButton" onclick="toggleFullscreen()">Fullscreen</button>
-</div>
+<body class="bg-light text-dark">
 
-<script>
-    var videoFrame = document.getElementById('videoFrame');
-    var videoWrapper = document.getElementById('videoWrapper');
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Illinois Court Video Test</a>
+        </div>
+    </nav>
 
-    function toggleFullscreen() {
-        if (!document.fullscreenElement) {
-            if (videoWrapper.requestFullscreen) {
-                videoWrapper.requestFullscreen();
-            } else if (videoWrapper.mozRequestFullScreen) { /* Firefox */
-                videoWrapper.mozRequestFullScreen();
-            } else if (videoWrapper.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-                videoWrapper.webkitRequestFullscreen();
-            } else if (videoWrapper.msRequestFullscreen) { /* IE/Edge */
-                videoWrapper.msRequestFullscreen();
+    <div class="container mt-5">
+        <div class="text-center mb-4">
+            <h1 class="display-4">Illinois Court Video Test</h1>
+            <p class="lead">
+                This is a description of the Illinois Court video test. It provides an overview of the content and
+                purpose of the video.
+            </p>
+        </div>
+
+        <div class="videoWrapper mb-4" id="videoWrapper">
+            <iframe id="videoFrame" width="auto" height="auto" style="border:0" loading="lazy" allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade" src="https://d1a0h0whdo1jgi.cloudfront.net/">
+            </iframe>
+            <button class="fullscreenButton btn btn-primary" onclick="toggleFullscreen()">Fullscreen</button>
+        </div>
+
+        <div class="contentWrapper text-center">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Point 1: Description about the first point.</li>
+                <li class="list-group-item">Point 2: Details regarding the second point.</li>
+                <li class="list-group-item">Point 3: Information on the third point.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        var videoFrame = document.getElementById('videoFrame');
+        var videoWrapper = document.getElementById('videoWrapper');
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                if (videoWrapper.requestFullscreen) {
+                    videoWrapper.requestFullscreen();
+                } else if (videoWrapper.mozRequestFullScreen) { /* Firefox */
+                    videoWrapper.mozRequestFullScreen();
+                } else if (videoWrapper.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    videoWrapper.webkitRequestFullscreen();
+                } else if (videoWrapper.msRequestFullscreen) { /* IE/Edge */
+                    videoWrapper.msRequestFullscreen();
+                }
+                lockOrientation();
+            } else {
+                exitFullscreen();
             }
-            lockOrientation();
-        } else {
-            exitFullscreen();
         }
-    }
 
-    function exitFullscreen() {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.mozCancelFullScreen) { /* Firefox */
-            document.mozCancelFullScreen();
-        } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
-            document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { /* IE/Edge */
-            document.msExitFullscreen();
+        function exitFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) { /* Firefox */
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE/Edge */
+                document.msExitFullscreen();
+            }
+            unlockOrientation();
         }
-        unlockOrientation();
-    }
 
-    function lockOrientation() {
-        if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock('landscape').catch(function(error) {
-                console.log('Error locking orientation:', error);
-            });
+        function lockOrientation() {
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch(function (error) {
+                    console.log('Error locking orientation:', error);
+                });
+            }
         }
-    }
 
-    function unlockOrientation() {
-        if (screen.orientation && screen.orientation.unlock) {
-            screen.orientation.unlock();
+        function unlockOrientation() {
+            if (screen.orientation && screen.orientation.unlock) {
+                screen.orientation.unlock();
+            }
         }
-    }
 
-    // Event listener for button text change and adjusting iframe size
-    document.addEventListener('fullscreenchange', function () {
-        if (document.fullscreenElement) {
-            document.querySelector('.fullscreenButton').textContent = 'Exit Fullscreen';
-            videoFrame.style.width = '100vw';
-            videoFrame.style.height = '100vh';
-        } else {
-            document.querySelector('.fullscreenButton').textContent = 'Fullscreen';
-            videoFrame.style.width = '100%';
-            videoFrame.style.height = '100%';
-        }
-    });
-</script>
-
+        // Event listener for button text change and adjusting iframe size
+        document.addEventListener('fullscreenchange', function () {
+            if (document.fullscreenElement) {
+                document.querySelector('.fullscreenButton').textContent = 'Exit Fullscreen';
+                videoFrame.style.width = '100vw';
+                videoFrame.style.height = '100vh';
+            } else {
+                document.querySelector('.fullscreenButton').textContent = 'Fullscreen';
+                videoFrame.style.width = '100%';
+                videoFrame.style.height = '100%';
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
